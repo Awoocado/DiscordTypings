@@ -346,9 +346,3 @@ export interface CategoryChannelData extends GuildChannelData {
 export interface NewsChannelData extends TextChannelData {
 	type: 5;
 }
-
-export interface PartialData {
-	id: Snowflake;
-	guild_id?: Snowflake;
-	number?: number;
-}
