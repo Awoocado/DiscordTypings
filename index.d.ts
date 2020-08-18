@@ -97,6 +97,7 @@ export type MessageData = {
 	timestamp: string;
 	tts: boolean;
 	type: number;
+	webhook_id?: Snowflake;
 }
 
 export type MemberData = {
