@@ -334,6 +334,7 @@ export interface VoiceChannelData extends GuildChannelData {
 }
 
 export interface GuildChannelData extends ChannelData {
+	guild_id: string;
 	permission_overwrites: Array<any>;
 	position: number;
 	parent_id?: Snowflake;
