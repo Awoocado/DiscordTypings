@@ -335,7 +335,7 @@ export interface VoiceChannelData extends GuildChannelData {
 
 export interface GuildChannelData extends ChannelData {
 	guild_id: string;
-	permission_overwrites: Array<any>;
+	permission_overwrites: Array<PermissionOverwriteData>;
 	position: number;
 	parent_id?: Snowflake;
 }
@@ -347,4 +347,13 @@ export interface CategoryChannelData extends GuildChannelData {
 
 export interface NewsChannelData extends TextChannelData {
 	type: 5;
+}
+
+export type PermissionOverwriteData = {
+	id: Snowflake;
+	type: "role" | "member";
+	allow: number;
+	allow_new: string;
+	deny: number;
+	deny_new: string;
 }
