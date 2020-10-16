@@ -345,7 +345,10 @@ export interface CategoryChannelData extends GuildChannelData {
 	type: 4;
 }
 
-export interface NewsChannelData extends TextChannelData {
+export interface NewsChannelData extends GuildChannelData, TextableChannelData {
+	rate_limit_per_user: number;
+	topic?: string;
+	nsfw: boolean;
 	type: 5;
 }
 
