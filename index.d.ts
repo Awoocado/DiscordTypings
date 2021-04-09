@@ -198,6 +198,7 @@ export type GuildData = {
 	icon?: string;
 	banner?: string;
 	premium_tier: number;
+	permissions?: string;
 	features: Array<string>;
 	presences: Array<PresenceData>;
 	verification_level: number;
@@ -331,6 +332,7 @@ export interface VoiceChannelData extends GuildChannelData {
 	bitrate: number;
 	user_limit: number;
 	type: 2;
+	rtc_region: string | null;
 }
 
 export interface GuildChannelData extends ChannelData {
@@ -355,8 +357,6 @@ export interface NewsChannelData extends GuildChannelData, TextableChannelData {
 export type PermissionOverwriteData = {
 	id: Snowflake;
 	type: "role" | "member";
-	allow: number;
-	allow_new: string;
-	deny: number;
-	deny_new: string;
+	allow: string;
+	deny: string;
 }
