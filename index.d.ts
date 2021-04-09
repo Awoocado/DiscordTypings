@@ -312,7 +312,7 @@ export interface ChannelData {
 }
 
 export interface TextableChannelData extends ChannelData {
-	last_message_id?: Snowflake;
+	last_message_id: Snowflake | null;
 	last_pin_timestamp?: string;
 }
 
