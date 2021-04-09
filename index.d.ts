@@ -335,6 +335,11 @@ export interface VoiceChannelData extends GuildChannelData {
 	rtc_region: string | null;
 }
 
+// @ts-ignore
+export interface StageChannelData extends VoiceChannelData {
+	type: 13;
+}
+
 export interface GuildChannelData extends ChannelData {
 	guild_id: string;
 	permission_overwrites: Array<PermissionOverwriteData>;
@@ -356,7 +361,10 @@ export interface NewsChannelData extends GuildChannelData, TextableChannelData {
 
 export type PermissionOverwriteData = {
 	id: Snowflake;
-	type: "role" | "member";
+	/**
+	 * 0 (role) or 1 (member)
+	 */
+	type: 0 | 1;
 	allow: string;
 	deny: string;
 }
