@@ -344,7 +344,7 @@ export interface GuildChannelData extends ChannelData {
 	guild_id: string;
 	permission_overwrites: Array<PermissionOverwriteData>;
 	position: number;
-	parent_id?: Snowflake;
+	parent_id: Snowflake | null;
 }
 
 export interface CategoryChannelData extends GuildChannelData {
