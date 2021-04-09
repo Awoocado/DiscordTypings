@@ -111,7 +111,7 @@ export type MemberData = {
 }
 
 export type UserData = {
-	avatar: string;
+	avatar: string | null;
 	discriminator: string;
 	id: Snowflake;
 	public_flags?: number;
