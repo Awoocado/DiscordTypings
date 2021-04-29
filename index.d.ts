@@ -37,7 +37,6 @@ export type MessageReactionRemoveAllData = {
 
 export type GuildEmojisUpdateData = {
 	emojis: GuildData["emojis"];
-	guild_hashes: GuildData["guild_hashes"];
 	guild_id: Snowflake;
 }
 
@@ -78,6 +77,28 @@ export type ResumeData = {
 	_trace: Array<string>;
 }
 
+export type ThreadListSyncData = {
+	guild_id: Snowflake;
+	channel_ids?: Array<Snowflake>;
+	threads: Array<ThreadChannelData>;
+	members: Array<ThreadMemberData>;
+}
+
+export type ThreadMembersUpdateData = {
+	id: Snowflake;
+	guild_id: Snowflake;
+	member_count: number;
+	added_members?: Array<ThreadMemberData>;
+	removed_member_ids?: Array<Snowflake>;
+}
+
+export type ThreadMemberData = {
+	id: Snowflake;
+	user_id: Snowflake;
+	join_timestamp: string;
+	flags: string;
+}
+
 export type MessageData = {
 	guild_id?: Snowflake;
 	attachments: Array<AttachmentData>;
@@ -92,12 +113,20 @@ export type MessageData = {
 	mention_everyone: boolean;
 	mention_roles: Array<Snowflake>;
 	mentions: Array<UserData & { member: MemberData }>;
+	mention_channels?: Array<ChannelMentionData>;
 	nonce: Snowflake;
 	pinned: boolean;
 	timestamp: string;
 	tts: boolean;
-	type: number;
+	type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22;
 	webhook_id?: Snowflake;
+	activity?: MessageActivityData;
+	application?: Applicationdata;
+	thread?: ThreadChannelData;
+	stickers?: Array<StickerData>;
+	message_reference?: MessageReferenceData;
+	referenced_message?: MessageData | null;
+	reactions?: Array<ReactionData>;
 }
 
 export type MemberData = {
@@ -188,7 +217,7 @@ export type GuildData = {
 	roles: Array<RoleData>;
 	default_message_notifications: number;
 	rules_channel_id?: Snowflake;
-	max_video_channel_users: number;
+	max_video_channel_users?: number;
 	emojis: Array<EmojiData>;
 	lazy: boolean;
 	owner_id: Snowflake;
@@ -200,7 +229,8 @@ export type GuildData = {
 	premium_tier: number;
 	permissions?: string;
 	features: Array<string>;
-	presences: Array<PresenceData>;
+	presences?: Array<PresenceData>;
+	max_presences?: number;
 	verification_level: number;
 	voice_states: Array<VoiceStateData>;
 	application_id?: Snowflake;
@@ -208,9 +238,9 @@ export type GuildData = {
 	premium_subscription_count: number;
 	name: string;
 	channels: Array<TextChannelData | VoiceChannelData | StageChannelData | CategoryChannelData | NewsChannelData>;
+	threads: Array<ThreadChannelData>;
 	joined_at: string;
 	unavailable: boolean;
-	guild_hashes: GuildHashData;
 	public_updates_channel_id?: Snowflake;
 	mfa_level: number;
 	explicit_content_filter: number;
@@ -226,13 +256,22 @@ export type GuildData = {
 	id: Snowflake;
 	embed_enabled?: boolean;
 	embed_channel_id?: Snowflake;
+	approximate_member_count?: number;
+	approximate_presence_count?: number;
+	welcome_screen?: WelcomeScreenData;
+	nsfw: boolean;
 }
 
-export type GuildHashData = {
-	channels: { hash: string, omitted?: boolean };
-	metadata?: { hash: string, omitted?: boolean };
-	roles?: { hash: string, omitted?: boolean };
-	version: number;
+export type WelcomeScreenData = {
+	description?: string;
+	welcome_channels: Array<WelcomeScreenChannelData>;
+}
+
+export type WelcomeScreenChannelData = {
+	channel_id: Snowflake;
+	description?: string;
+	emoji_id?: Snowflake;
+	emoji_name?: string;
 }
 
 export type RoleData = {
@@ -323,6 +362,23 @@ export interface TextChannelData extends GuildChannelData, TextableChannelData {
 	type: 0;
 }
 
+export interface ThreadChannelData extends GuildChannelData, TextableChannelData {
+	rate_limit_per_user: number;
+	topic?: string;
+	nsfw: boolean;
+	owner_id: Snowflake;
+	message_count: number;
+	member_count: number;
+	thread_metadata: {
+		archived: boolean;
+		archive_timestamp: string;
+		archiver_id: Snowflake;
+		auto_archive_duration: number;
+		locked: boolean;
+	};
+	type: 10 | 11 | 12
+}
+
 export interface DMChannelData extends TextableChannelData {
 	recipients: Array<UserData>;
 	type: 1;
@@ -367,4 +423,89 @@ export type PermissionOverwriteData = {
 	type: 0 | 1;
 	allow: string;
 	deny: string;
+}
+
+export type Applicationdata = {
+	id: Snowflake;
+	name: string;
+	icon: string | null;
+	description: string;
+	rpc_origins?: Array<string>;
+	bot_public: boolean;
+	bot_require_code_grant: boolean;
+	terms_of_service_url?: string;
+	privacy_policy_url?: string;
+	owner: UserData;
+	summary: string;
+	verify_key: string;
+	team: TeamData | null;
+	guild_id: Snowflake | null;
+	primary_sku_id?: Snowflake;
+	slug?: string;
+	cover_image?: string;
+	flags: number;
+}
+
+export type TeamData = {
+	icon: string | null;
+	id: Snowflake;
+	members: Array<TeamMemberData>;
+	owner_user_id: Snowflake;
+}
+
+export type TeamMemberData = {
+	membership_state: 1 | 2;
+	permissions: ["*"];
+	team_id: Snowflake;
+	user: UserData;
+}
+
+export type StickerData = {
+	id: Snowflake;
+	pack_id: Snowflake;
+	name: string;
+	description: string;
+	tags?: string;
+	asset?: string;
+	format_type: 1 | 2 | 3
+}
+
+export type MessageReferenceData = {
+	message_id?: Snowflake;
+	channel_id?: Snowflake;
+	guild_id?: Snowflake;
+	fail_if_not_exists?: boolean;
+}
+
+export type MessageActivityData = {
+	type: 1 | 2 | 3 | 5;
+	party_id?: string;
+}
+
+export type ChannelMentionData = {
+	id: Snowflake;
+	guild_id: Snowflake;
+	type: ChannelData["type"];
+	name: string;
+}
+
+export type ReactionData = {
+	count: number;
+	me: boolean;
+	emoji: {
+		id: Snowflake | null;
+		name: string;
+	};
+}
+
+export type InviteData = {
+	code: string;
+	guild?: Partial<GuildData>;
+	channel: GuildChannelData;
+	inviter?: UserData;
+	target_type?: 1 | 2;
+	target_user?: UserData;
+	target_application?: Partial<Applicationdata>;
+	approximate_presence_count?: number;
+	approximate_member_count?: number;
 }
