@@ -287,13 +287,14 @@ export type RoleData = {
 }
 
 export type EmojiData = {
-	animated: boolean;
-	available: boolean;
-	id: Snowflake;
-	managed: boolean;
+	animated?: boolean;
+	available?: boolean;
+	id: Snowflake | null;
+	managed?: boolean;
 	name: string;
-	require_colons: boolean;
-	roles: Array<Snowflake>;
+	require_colons?: boolean;
+	roles?: Array<Snowflake>;
+	user?: UserData;
 }
 
 export type PresenceData = {
