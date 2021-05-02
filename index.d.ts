@@ -292,7 +292,7 @@ export type EmojiData = {
 	id: Snowflake;
 	managed: boolean;
 	name: string;
-	require_colors: true;
+	require_colons: true;
 	roles: Array<Snowflake>;
 }
 
