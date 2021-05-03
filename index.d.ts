@@ -254,8 +254,8 @@ export type GuildData = {
 	large: boolean;
 	afk_channel_id?: Snowflake;
 	id: Snowflake;
-	embed_enabled?: boolean;
-	embed_channel_id?: Snowflake;
+	widget_enabled?: boolean;
+	widget_channel_id?: Snowflake;
 	approximate_member_count?: number;
 	approximate_presence_count?: number;
 	welcome_screen?: WelcomeScreenData;
