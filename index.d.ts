@@ -215,43 +215,42 @@ export type AttachmentData = {
 
 export type GuildData = {
 	roles: Array<RoleData>;
-	default_message_notifications: number;
+	default_message_notifications: 0 | 1;
 	rules_channel_id?: Snowflake;
 	max_video_channel_users?: number;
 	emojis: Array<EmojiData>;
-	lazy: boolean;
 	owner_id: Snowflake;
-	discovery_splash?: string;
+	discovery_splash: string | null;
 	preferred_locale: string;
-	members: Array<MemberData & { user: UserData }>;
+	members?: Array<MemberData & { user: UserData }>;
 	icon?: string;
-	banner?: string;
+	banner: string | null;
 	premium_tier: number;
 	permissions?: string;
 	features: Array<string>;
 	presences?: Array<PresenceData>;
 	max_presences?: number;
-	verification_level: number;
-	voice_states: Array<VoiceStateData>;
+	verification_level: 0 | 1 | 2 | 3 | 4;
+	voice_states?: Array<VoiceStateData>;
 	application_id?: Snowflake;
-	vanity_url_code?: string;
-	premium_subscription_count: number;
+	vanity_url_code: string | null;
+	premium_subscription_count?: number;
 	name: string;
-	channels: Array<TextChannelData | VoiceChannelData | StageChannelData | CategoryChannelData | NewsChannelData>;
-	threads: Array<ThreadChannelData>;
-	joined_at: string;
-	unavailable: boolean;
-	public_updates_channel_id?: Snowflake;
-	mfa_level: number;
+	channels?: Array<TextChannelData | VoiceChannelData | StageChannelData | CategoryChannelData | NewsChannelData>;
+	threads?: Array<ThreadChannelData>;
+	joined_at?: string;
+	unavailable?: boolean;
+	public_updates_channel_id: Snowflake | null;
+	mfa_level: 0 | 1;
 	explicit_content_filter: number;
 	system_channel_id?: Snowflake;
 	afk_timeout: number;
-	member_count: number;
-	splash?: string;
+	member_count?: number;
+	splash: string | null;
 	system_channel_flags: number;
 	region?: string;
-	description?: string;
-	large: boolean;
+	description: string | null;
+	large?: boolean;
 	afk_channel_id?: Snowflake;
 	id: Snowflake;
 	widget_enabled?: boolean;
@@ -260,6 +259,8 @@ export type GuildData = {
 	approximate_presence_count?: number;
 	welcome_screen?: WelcomeScreenData;
 	nsfw: boolean;
+	owner?: boolean;
+	max_members?: number;
 }
 
 export type WelcomeScreenData = {
@@ -370,14 +371,16 @@ export interface ThreadChannelData extends GuildChannelData, TextableChannelData
 	owner_id: Snowflake;
 	message_count: number;
 	member_count: number;
-	thread_metadata: {
-		archived: boolean;
-		archive_timestamp: string;
-		archiver_id: Snowflake;
-		auto_archive_duration: number;
-		locked: boolean;
-	};
+	thread_metadata: ThreadMetaData;
 	type: 10 | 11 | 12
+}
+
+export interface ThreadMetaData {
+	archived: boolean;
+	archive_timestamp: string;
+	archiver_id?: Snowflake;
+	auto_archive_duration: number;
+	locked: boolean;
 }
 
 export interface DMChannelData extends TextableChannelData {
