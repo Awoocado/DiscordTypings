@@ -96,7 +96,7 @@ export type ThreadMemberData = {
 	id: Snowflake;
 	user_id: Snowflake;
 	join_timestamp: string;
-	flags: string;
+	flags: number;
 }
 
 export type MessageData = {
