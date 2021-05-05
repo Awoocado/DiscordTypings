@@ -9,10 +9,7 @@ export type MessageDeleteData = {
 export type MessageReactionAddData = {
 	guild_id?: Snowflake;
 	channel_id: Snowflake;
-	emoji: {
-		id?: Snowflake;
-		name: string;
-	};
+	emoji: ReactionEmojiData;
 	member: MemberData & { user: UserData };
 	message_id: Snowflake;
 	user_id: Snowflake;
@@ -22,8 +19,9 @@ export type MessageReactionRemoveData = {
 	guild_id?: Snowflake;
 	channel_id: Snowflake;
 	emoji: {
-		id?: Snowflake;
+		id: Snowflake | null;
 		name: string;
+		animated?: boolean;
 	};
 	message_id: Snowflake;
 	user_id: Snowflake;
@@ -36,7 +34,7 @@ export type MessageReactionRemoveAllData = {
 }
 
 export type GuildEmojisUpdateData = {
-	emojis: GuildData["emojis"];
+	emojis: Array<EmojiData>;
 	guild_id: Snowflake;
 }
 
@@ -121,7 +119,7 @@ export type MessageData = {
 	type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22;
 	webhook_id?: Snowflake;
 	activity?: MessageActivityData;
-	application?: Applicationdata;
+	application?: ApplicationData;
 	thread?: ThreadChannelData;
 	stickers?: Array<StickerData>;
 	message_reference?: MessageReferenceData;
@@ -304,11 +302,7 @@ export type PresenceData = {
 	game: ActivityData;
 	guild_id: Snowflake;
 	activities: Array<ActivityData>;
-	client_status: {
-		desktop?: string;
-		mobile?: string;
-		web?: string;
-	};
+	client_status: ClientStatusData;
 	premium_since?: string;
 	nick?: string;
 }
@@ -322,11 +316,7 @@ export type ActivityData = {
 		start?: number;
 		end?: number;
 	};
-	emoji?: {
-		name: string;
-		id?: Snowflake;
-		animated?: boolean;
-	};
+	emoji?: ReactionEmojiData;
 	party?: {
 		id?: string;
 		size?: [number, number];
@@ -429,7 +419,7 @@ export type PermissionOverwriteData = {
 	deny: string;
 }
 
-export type Applicationdata = {
+export type ApplicationData = {
 	id: Snowflake;
 	name: string;
 	icon: string | null;
@@ -496,10 +486,7 @@ export type ChannelMentionData = {
 export type ReactionData = {
 	count: number;
 	me: boolean;
-	emoji: {
-		id: Snowflake | null;
-		name: string;
-	};
+	emoji: ReactionEmojiData;
 }
 
 export type InviteData = {
@@ -509,7 +496,104 @@ export type InviteData = {
 	inviter?: UserData;
 	target_type?: 1 | 2;
 	target_user?: UserData;
-	target_application?: Partial<Applicationdata>;
+	target_application?: Partial<ApplicationData>;
 	approximate_presence_count?: number;
 	approximate_member_count?: number;
 }
+
+export type GuildDeleteData = {
+	id: Snowflake;
+	unavailable: boolean;
+}
+
+export type GuildBanAddData = {
+	guild_id: Snowflake;
+	user: UserData;
+}
+
+export type GuildBanRemoveData = {
+	guild_id: Snowflake;
+	user: UserData;
+}
+
+export type GuildMemberRemoveData = {
+	guild_id: Snowflake;
+	user: UserData;
+}
+
+export type GuildMembersChunkData = {
+	guild_id: Snowflake;
+	members: Array<MemberData & { user: UserData }>;
+	chunk_index: number;
+	chunk_count: number;
+	not_found?: Array<Snowflake>;
+	presences?: Array<PresenceData>;
+	nonce?: string;
+}
+
+export type InviteCreateData = {
+	channel_id: Snowflake;
+	code: string;
+	created_at: string;
+	guild_id?: Snowflake;
+	inviter?: UserData;
+	max_age: number;
+	max_uses: number;
+	target_type?: 1 | 2;
+	target_user?: UserData;
+	temporary: boolean;
+	uses: number;
+}
+
+export type InviteDeleteData = {
+	channel_id: Snowflake;
+	guild_id?: Snowflake;
+	code: string;
+}
+
+export type MessageBulkDeleteData = {
+	ids: Array<Snowflake>;
+	channel_id: Snowflake;
+	guild_id?: Snowflake;
+}
+
+export type MessageReactionRemoveEmojiData = {
+	channel_id: Snowflake;
+	guild_id?: Snowflake;
+	message_id: Snowflake;
+	emoji: ReactionEmojiData;
+}
+
+export type ReactionEmojiData = {
+	id: Snowflake | null;
+	name: string;
+	animated?: boolean;
+}
+
+export type PresenceUpdateData = {
+	user: UserData;
+	guild_id: Snowflake;
+	status: "online" | "idle" | "dnd" | "offline";
+	activities: Array<ActivityData>;
+	client_status: ClientStatusData;
+};
+
+export type ClientStatusData = {
+	desktop?: string;
+	mobile?: string;
+	web?: string;
+}
+
+export type TypingStartData = {
+	channel_id: Snowflake;
+	guild_id?: Snowflake;
+	user_id: Snowflake;
+	timestamp: number;
+	member?: MemberData;
+}
+
+export type VoiceServerUpdateData = {
+	token: string;
+	guild_id: Snowflake;
+	endpoint: string;
+};
