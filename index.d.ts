@@ -132,7 +132,7 @@ export type MemberData = {
 	hoisted_role: Snowflake;
 	joined_at: string;
 	mute: boolean;
-	nick: string;
+	nick: string | null;
 	premium_since?: string;
 	roles: Array<Snowflake>;
 }
