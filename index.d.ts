@@ -203,12 +203,13 @@ export type EmbedData = {
 
 export type AttachmentData = {
 	filename: string;
-	height: number;
+	height?: number | null;
 	id: Snowflake;
-	proxy_url?: string;
+	proxy_url: string;
 	size: number;
 	url: string;
-	width: number;
+	width?: number | null;
+	content_type?: string;
 }
 
 export type GuildData = {
@@ -221,11 +222,11 @@ export type GuildData = {
 	discovery_splash: string | null;
 	preferred_locale: string;
 	members?: Array<MemberData & { user: UserData }>;
-	icon?: string;
+	icon: string | null;
 	banner: string | null;
 	premium_tier: number;
 	permissions?: string;
-	features: Array<string>;
+	features: Array<GuildFeature>;
 	presences?: Array<PresenceData>;
 	max_presences?: number;
 	verification_level: 0 | 1 | 2 | 3 | 4;
@@ -261,16 +262,18 @@ export type GuildData = {
 	max_members?: number;
 }
 
+export type GuildFeature = "ANIMATED_ICON" | "BANNER" | "COMMERCE" | "COMMUNITY" | "DISCOVERABLE" | "FEATURABLE" | "INVITE_SPLASH" | "MEMBER_VERIFICATION_GATE_ENABLED" | "NEWS" | "PARTNERED" | "PREVIEW_ENABLED" | "VANITY_URL" | "VERIFIED" | "VIP_REGIONS" | "WELCOME_SCREEN_ENABLED";
+
 export type WelcomeScreenData = {
-	description?: string;
+	description: string | null;
 	welcome_channels: Array<WelcomeScreenChannelData>;
 }
 
 export type WelcomeScreenChannelData = {
 	channel_id: Snowflake;
 	description?: string;
-	emoji_id?: Snowflake;
-	emoji_name?: string;
+	emoji_id: Snowflake | null;
+	emoji_name: string | null;
 }
 
 export type RoleData = {
@@ -597,3 +600,174 @@ export type VoiceServerUpdateData = {
 	guild_id: Snowflake;
 	endpoint: string;
 };
+
+export type ApplicationCommand = {
+	id: Snowflake;
+	application_id: Snowflake;
+	name: string;
+	description: string;
+	options?: Array<ApplicationCommandOption>;
+	default_permission?: boolean;
+}
+
+export type ApplicationCommandOption = {
+	type: ApplicationCommandOptionType;
+	name: string;
+	description: string;
+	required?: boolean;
+	choices?: Array<ApplicationCommandOptionChoice>;
+	options?: Array<ApplicationCommandOption>;
+}
+
+export type ApplicationCommandOptionType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export type ApplicationCommandOptionChoice = {
+	name: string;
+	value: string | number;
+}
+
+export type GuildApplicationCommandPermissions = {
+	id: Snowflake;
+	application_id: Snowflake;
+	guild_id: Snowflake;
+	permissions: Array<ApplicationCommandPermissions>;
+}
+
+export type ApplicationCommandPermissions = {
+	id: Snowflake;
+	type: InteractionType;
+	permission: boolean;
+}
+
+export type InteractionType = 1 | 2;
+
+export type InteractionData = {
+	id: Snowflake;
+	application_id: Snowflake;
+	type: 1 | 2;
+	data?: ApplicationCommandInteractionData;
+	guild_id?: Snowflake;
+	channel_id?: Snowflake;
+	member?: MemberData;
+	user?: UserData;
+	token: string;
+	version: number;
+}
+
+export type ApplicationCommandInteractionData = {
+	id: Snowflake;
+	name: string;
+	resolved?: ApplicationCommandInteractionDataResolved;
+	options?: Array<ApplicationCommandInteractionDataOption>;
+}
+
+export type ApplicationCommandInteractionDataResolved = {
+	users?: { [id: string]: UserData };
+	members?: { [id: string]: MemberData };
+	roles?: { [id: string]: RoleData };
+	channels?: { [id: string]: ChannelData; };
+}
+
+export type ApplicationCommandInteractionDataOption = {
+	name: string;
+	type: ApplicationCommandOptionType;
+	value?: string | number;
+	options?: ApplicationCommandInteractionDataOption;
+}
+
+export type InteractionResponseData = {
+	type: InteractionCallbackType;
+	data?: InteractionApplicationCommandCallbackData;
+}
+
+export type InteractionCallbackType = 1 | 4 | 5;
+
+export type InteractionApplicationCommandCallbackData = {
+	tts?: boolean;
+	content?: string;
+	embeds?: Array<EmbedData>;
+	allowed_mentions?: AllowedMentionsData;
+	flags?: number;
+}
+
+export type AllowedMentionsData = {
+	parse: Array<"roles" | "users" | "everyone">;
+	roles: Array<Snowflake>;
+	users: Array<Snowflake>;
+	replied_user: boolean;
+}
+
+export type MessageInteraction = {
+	id: Snowflake;
+	type: InteractionType;
+	name: string;
+	user: UserData;
+}
+
+export type WebhookData = {
+	id: Snowflake;
+	type: 1 | 2;
+	guild_id?: Snowflake;
+	channel_id: Snowflake;
+	user?: UserData;
+	name: string | null;
+	avatar: string | null;
+	token?: string;
+	application_id: Snowflake | null;
+	source_guild?: Partial<GuildData>;
+	source_channel?: Partial<GuildChannelData>;
+	url?: string;
+}
+
+export type AuditLogObject = {
+	webhooks: Array<any>;
+	users: Array<UserData>;
+	audit_log_entries: Array<AuditLogEntry>;
+}
+
+export type AuditLogEntry = {
+	target_id: string | null;
+	changes?: Array<AuditLogChange>;
+	user_id: string | null;
+	id: string;
+	action_type: AuditLogEventType;
+	options?: {
+		delete_member_days?: string;
+		members_removed?: string;
+		channel_id?: string;
+		message_id?: string;
+		count?: string;
+		id?: string;
+		type?: "0" | "1";
+		role_name?: string;
+	};
+	reason?: string;
+}
+
+export type AuditLogChange = {
+	new_value?: string | number | boolean | Array<RoleData> | Array<PermissionOverwriteData>;
+	old_value?: string | number | boolean | Array<RoleData> | Array<PermissionOverwriteData>;
+	key: string;
+}
+
+export type AuditLogEventType = 1 | 10 | 11 | 12 | 13 | 14 | 15 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 30 | 31 | 32 | 40 | 41 | 42 | 50 | 51 | 52 | 60 | 61 | 62 | 72 | 73 | 74 | 75 | 80 | 81 | 82;
+
+export type GuildPreviewData = Pick<GuildData, "id" | "name" | "icon" | "splash" | "discovery_splash" | "emojis" | "features" | "approximate_member_count" | "approximate_presence_count" | "description">;
+
+export type GuildWidgetData = {
+	id: Snowflake;
+	name: string;
+	instant_invite: string;
+	channels: Array<{ id: string; name: string; position: number; }>;
+	members: Array<UserData & { status: string; avatar_url: string; }>;
+	presence_count: number;
+}
+
+export type VoiceRegionData = {
+	id: string;
+	name: string;
+	vip: boolean;
+	optimal: boolean;
+	deprecated: boolean;
+	custom: boolean;
+}
