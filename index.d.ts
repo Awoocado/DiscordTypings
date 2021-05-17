@@ -342,8 +342,10 @@ export type ActivityData = {
 export interface ChannelData {
 	id: Snowflake;
 	name: string;
-	type: number;
+	type: ChannelType;
 }
+
+export type ChannelType = 0 | 1 | 2 | 4 | 5 | 6 | 10 | 11 | 12 | 13;
 
 export interface TextableChannelData extends ChannelData {
 	last_message_id: Snowflake | null;
@@ -482,7 +484,7 @@ export type MessageActivityData = {
 export type ChannelMentionData = {
 	id: Snowflake;
 	guild_id: Snowflake;
-	type: ChannelData["type"];
+	type: ChannelType;
 	name: string;
 }
 
