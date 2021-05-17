@@ -674,7 +674,7 @@ export type ApplicationCommandInteractionDataOption = {
 	name: string;
 	type: ApplicationCommandOptionType;
 	value?: string | number;
-	options?: ApplicationCommandInteractionDataOption;
+	options?: Array<ApplicationCommandInteractionDataOption>;
 }
 
 export type InteractionResponseData = {
