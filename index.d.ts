@@ -648,7 +648,7 @@ export type InteractionData = {
 	data?: ApplicationCommandInteractionData;
 	guild_id?: Snowflake;
 	channel_id?: Snowflake;
-	member?: MemberData;
+	member?: MemberData & { user: UserData };
 	user?: UserData;
 	token: string;
 	version: number;
