@@ -125,12 +125,13 @@ export type MessageData = {
 	message_reference?: MessageReferenceData;
 	referenced_message?: MessageData | null;
 	reactions?: Array<ReactionData>;
+	application_id?: Snowflake;
 }
 
 export type MemberData = {
 	deaf: boolean;
 	hoisted_role: Snowflake;
-	joined_at: string;
+	joined_at: string | null;
 	mute: boolean;
 	nick: string | null;
 	premium_since?: string;
@@ -260,6 +261,14 @@ export type GuildData = {
 	nsfw: boolean;
 	owner?: boolean;
 	max_members?: number;
+	stage_instances?: Array<StageInstanceData>;
+}
+
+export type StageInstanceData = {
+	id: Snowflake;
+	guild_id: Snowflake;
+	channel_id: Snowflake;
+	topic: string;
 }
 
 export type GuildFeature = "ANIMATED_ICON" | "BANNER" | "COMMERCE" | "COMMUNITY" | "DISCOVERABLE" | "FEATURABLE" | "INVITE_SPLASH" | "MEMBER_VERIFICATION_GATE_ENABLED" | "NEWS" | "PARTNERED" | "PREVIEW_ENABLED" | "VANITY_URL" | "VERIFIED" | "VIP_REGIONS" | "WELCOME_SCREEN_ENABLED";
@@ -448,6 +457,7 @@ export type ApplicationData = {
 export type TeamData = {
 	icon: string | null;
 	id: Snowflake;
+	name: string;
 	members: Array<TeamMemberData>;
 	owner_user_id: Snowflake;
 }
@@ -504,6 +514,7 @@ export type InviteData = {
 	target_application?: Partial<ApplicationData>;
 	approximate_presence_count?: number;
 	approximate_member_count?: number;
+	expires_at?: string | null;
 }
 
 export type GuildDeleteData = {
@@ -708,7 +719,7 @@ export type MessageInteraction = {
 
 export type WebhookData = {
 	id: Snowflake;
-	type: 1 | 2;
+	type: 1 | 2 | 3;
 	guild_id?: Snowflake;
 	channel_id: Snowflake;
 	user?: UserData;
