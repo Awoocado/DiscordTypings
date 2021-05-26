@@ -126,6 +126,7 @@ export type MessageData = {
 	referenced_message?: MessageData | null;
 	reactions?: Array<ReactionData>;
 	application_id?: Snowflake;
+	components?: Array<MessageComponentData>;
 }
 
 export type MemberData = {
@@ -698,6 +699,7 @@ export type InteractionCallbackType = 1 | 4 | 5;
 export type InteractionApplicationCommandCallbackData = {
 	tts?: boolean;
 	content?: string;
+	components?: Array<MessageComponentData>;
 	embeds?: Array<EmbedData>;
 	allowed_mentions?: AllowedMentionsData;
 	flags?: number;
@@ -783,4 +785,33 @@ export type VoiceRegionData = {
 	optimal: boolean;
 	deprecated: boolean;
 	custom: boolean;
+}
+
+export type MessageComponentData = {
+	type: 1 | 2;
+	style?: 1 | 2 | 3 | 4 | 5;
+	components?: Array<ButtonData>;
+	label?: string;
+	emoji?: {
+		id: Snowflake | null;
+		name: string;
+		animated?: boolean;
+	};
+	custom_id?: string;
+	url?: string;
+	disabled?: boolean;
+}
+
+export type ButtonData = {
+	type: 2;
+	style: 1 | 2 | 3 | 4 | 5;
+	label?: string;
+	emoji?: {
+		id: Snowflake | null;
+		name: string;
+		animated?: boolean;
+	};
+	custom_id?: string;
+	url?: string;
+	disabled?: boolean;
 }
