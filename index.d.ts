@@ -50,7 +50,7 @@ export type VoiceStateData = {
 	session_id: string;
 	suppress: boolean;
 	user_id: Snowflake;
-	member?: MemberData & { user: UserData };
+	member?: MemberData & { user: UserData } | null;
 }
 
 export type ChannelPinData = {
@@ -126,7 +126,15 @@ export type MessageData = {
 	referenced_message?: MessageData | null;
 	reactions?: Array<ReactionData>;
 	application_id?: Snowflake;
+	interaction?: MessageInteractionData;
 	components?: Array<MessageComponentData>;
+}
+
+export type MessageInteractionData = {
+	id: Snowflake;
+	type: InteractionType;
+	name: string;
+	user: UserData;
 }
 
 export type MemberData = {
@@ -653,7 +661,7 @@ export type ApplicationCommandPermissions = {
 	permission: boolean;
 }
 
-export type InteractionType = 1 | 2;
+export type InteractionType = 1 | 2 | 3;
 
 export type InteractionData = {
 	id: Snowflake;
@@ -694,7 +702,7 @@ export type InteractionResponseData = {
 	data?: InteractionApplicationCommandCallbackData;
 }
 
-export type InteractionCallbackType = 1 | 4 | 5;
+export type InteractionCallbackType = 1 | 4 | 5 | 6 | 7;
 
 export type InteractionApplicationCommandCallbackData = {
 	tts?: boolean;
