@@ -682,6 +682,8 @@ export type ApplicationCommandInteractionData = {
 	name: string;
 	resolved?: ApplicationCommandInteractionDataResolved;
 	options?: Array<ApplicationCommandInteractionDataOption>;
+	custom_id?: string;
+	component_type?: 1 | 2;
 }
 
 export type ApplicationCommandInteractionDataResolved = {
