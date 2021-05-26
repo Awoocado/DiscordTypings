@@ -674,6 +674,7 @@ export type InteractionData = {
 	user?: UserData;
 	token: string;
 	version: number;
+	message?: MessageData;
 }
 
 export type ApplicationCommandInteractionData = {
