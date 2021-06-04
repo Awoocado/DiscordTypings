@@ -145,6 +145,7 @@ export type MemberData = {
 	nick: string | null;
 	premium_since?: string;
 	roles: Array<Snowflake>;
+	avatar?: string | null;
 }
 
 export type UserData = {
@@ -337,6 +338,9 @@ export type ActivityData = {
 		start?: number;
 		end?: number;
 	};
+	application_id?: Snowflake;
+	details?: string | null;
+	state?: string | null;
 	emoji?: ReactionEmojiData;
 	party?: {
 		id?: string;
@@ -355,6 +359,7 @@ export type ActivityData = {
 	};
 	instance?: boolean;
 	flags?: number;
+	buttons?: Array<{ label: string; url: string }>;
 }
 
 export interface ChannelData {
@@ -452,7 +457,7 @@ export type ApplicationData = {
 	bot_require_code_grant: boolean;
 	terms_of_service_url?: string;
 	privacy_policy_url?: string;
-	owner: UserData;
+	owner?: UserData;
 	summary: string;
 	verify_key: string;
 	team: TeamData | null;
@@ -818,8 +823,8 @@ export type ButtonData = {
 	style: 1 | 2 | 3 | 4 | 5;
 	label?: string;
 	emoji?: {
-		id: Snowflake | null;
-		name: string;
+		id?: Snowflake | null;
+		name?: string;
 		animated?: boolean;
 	};
 	custom_id?: string;
