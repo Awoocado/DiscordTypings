@@ -413,6 +413,11 @@ export interface VoiceChannelData extends GuildChannelData {
 	rtc_region: string | null;
 }
 
+export interface StoreChannelData extends GuildChannelData {
+	nsfw: boolean;
+	type: 6;
+}
+
 // @ts-ignore
 export interface StageChannelData extends VoiceChannelData {
 	type: 13;
@@ -830,4 +835,50 @@ export type ButtonData = {
 	custom_id?: string;
 	url?: string;
 	disabled?: boolean;
+}
+
+export type GuildTemplateData = {
+	code: string;
+	name: string;
+	description: string | null;
+	usage_count: number;
+	creator_id: Snowflake;
+	creator: UserData;
+	created_at: string;
+	updated_at: string;
+	source_guild_id: Snowflake;
+	serialized_source_guild: Partial<GuildData>;
+	is_dirty: boolean | null;
+}
+
+export type IntegrationData = {
+	id: Snowflake;
+	name: string;
+	type: "twitch" | "youtube" | "discord";
+	enabled: boolean;
+	syncing?: boolean;
+	role_id?: Snowflake;
+	enable_emoticons?: boolean;
+	expire_behavior?: 0 | 1;
+	expire_grace_period?: number;
+	user?: UserData;
+	account: IntegrationAccountData;
+	synced_at?: string;
+	subscriber_count?: number;
+	revoked?: boolean;
+	application?: IntegrationApplicationData;
+}
+
+export type IntegrationAccountData = {
+	id: string;
+	name: string;
+}
+
+export type IntegrationApplicationData = {
+	id: Snowflake;
+	name: string;
+	icon: string | null;
+	description: string;
+	summary: string;
+	bot?: UserData;
 }
