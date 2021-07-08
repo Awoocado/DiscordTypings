@@ -91,8 +91,8 @@ export type ThreadMembersUpdateData = {
 }
 
 export type ThreadMemberData = {
-	id: Snowflake;
-	user_id: Snowflake;
+	id?: Snowflake;
+	user_id?: Snowflake;
 	join_timestamp: string;
 	flags: number;
 }
@@ -121,7 +121,7 @@ export type MessageData = {
 	activity?: MessageActivityData;
 	application?: ApplicationData;
 	thread?: ThreadChannelData;
-	stickers?: Array<StickerData>;
+	sticker_items?: Array<StickerData>;
 	message_reference?: MessageReferenceData;
 	referenced_message?: MessageData | null;
 	reactions?: Array<ReactionData>;
@@ -390,7 +390,8 @@ export interface ThreadChannelData extends GuildChannelData, TextableChannelData
 	message_count: number;
 	member_count: number;
 	thread_metadata: ThreadMetaData;
-	type: 10 | 11 | 12
+	type: 10 | 11 | 12;
+	default_auto_archive_duration: number | null;
 }
 
 export interface ThreadMetaData {
@@ -490,11 +491,7 @@ export type TeamMemberData = {
 
 export type StickerData = {
 	id: Snowflake;
-	pack_id: Snowflake;
 	name: string;
-	description: string;
-	tags?: string;
-	asset?: string;
 	format_type: 1 | 2 | 3
 }
 
@@ -786,7 +783,7 @@ export type AuditLogChange = {
 	key: string;
 }
 
-export type AuditLogEventType = 1 | 10 | 11 | 12 | 13 | 14 | 15 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 30 | 31 | 32 | 40 | 41 | 42 | 50 | 51 | 52 | 60 | 61 | 62 | 72 | 73 | 74 | 75 | 80 | 81 | 82;
+export type AuditLogEventType = 1 | 10 | 11 | 12 | 13 | 14 | 15 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 30 | 31 | 32 | 40 | 41 | 42 | 50 | 51 | 52 | 60 | 61 | 62 | 72 | 73 | 74 | 75 | 80 | 81 | 82 | 83 | 84 | 85;
 
 export type GuildPreviewData = Pick<GuildData, "id" | "name" | "icon" | "splash" | "discovery_splash" | "emojis" | "features" | "approximate_member_count" | "approximate_presence_count" | "description">;
 
