@@ -632,12 +632,15 @@ export type VoiceServerUpdateData = {
 
 export type ApplicationCommand = {
 	id: Snowflake;
+	type?: ApplicationCommandType;
 	application_id: Snowflake;
 	name: string;
 	description: string;
 	options?: Array<ApplicationCommandOption>;
 	default_permission?: boolean;
 }
+
+export type ApplicationCommandType = 1 | 2 | 3;
 
 export type ApplicationCommandOption = {
 	type: ApplicationCommandOptionType;
