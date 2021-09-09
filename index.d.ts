@@ -628,7 +628,7 @@ export type VoiceServerUpdateData = {
 	token: string;
 	guild_id: Snowflake;
 	endpoint: string;
-};
+}
 
 export type ApplicationCommand = {
 	id: Snowflake;
