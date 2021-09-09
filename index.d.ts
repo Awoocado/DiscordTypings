@@ -701,6 +701,7 @@ export type ApplicationCommandInteractionData = {
 	options?: Array<ApplicationCommandInteractionDataOption>;
 	custom_id?: string;
 	component_type?: 1 | 2;
+	target_id?: Snowflake;
 }
 
 export type ApplicationCommandInteractionDataResolved = {
