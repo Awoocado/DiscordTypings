@@ -138,14 +138,17 @@ export type MessageInteractionData = {
 }
 
 export type MemberData = {
+	user?: UserData;
 	deaf: boolean;
 	hoisted_role: Snowflake;
-	joined_at: string | null;
+	joined_at: string;
 	mute: boolean;
 	nick: string | null;
 	premium_since?: string;
 	roles: Array<Snowflake>;
 	avatar?: string | null;
+	pending?: boolean;
+	permissions?: string;
 }
 
 export type UserData = {
