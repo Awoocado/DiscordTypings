@@ -634,10 +634,12 @@ export type ApplicationCommand = {
 	id: Snowflake;
 	type?: ApplicationCommandType;
 	application_id: Snowflake;
+	guild_id?: Snowflake;
 	name: string;
 	description: string;
 	options?: Array<ApplicationCommandOption>;
 	default_permission?: boolean;
+	version: Snowflake;
 }
 
 export type ApplicationCommandType = 1 | 2 | 3;
@@ -667,16 +669,16 @@ export type GuildApplicationCommandPermissions = {
 
 export type ApplicationCommandPermissions = {
 	id: Snowflake;
-	type: InteractionType;
+	type: ApplicationCommandPermissionType;
 	permission: boolean;
 }
 
-export type InteractionType = 1 | 2 | 3;
+export type ApplicationCommandPermissionType = 1 | 2 | 3;
 
 export type InteractionData = {
 	id: Snowflake;
 	application_id: Snowflake;
-	type: 1 | 2;
+	type: InteractionType;
 	data?: ApplicationCommandInteractionData;
 	guild_id?: Snowflake;
 	channel_id?: Snowflake;
@@ -686,6 +688,8 @@ export type InteractionData = {
 	version: number;
 	message?: MessageData;
 }
+
+export type InteractionType = 1 | 2 | 3;
 
 export type ApplicationCommandInteractionData = {
 	id: Snowflake;
@@ -809,7 +813,7 @@ export type VoiceRegionData = {
 }
 
 export type MessageComponentData = {
-	type: 1 | 2;
+	type: MessageComponentType;
 	style?: 1 | 2 | 3 | 4 | 5;
 	components?: Array<ButtonData>;
 	label?: string;
@@ -821,7 +825,25 @@ export type MessageComponentData = {
 	custom_id?: string;
 	url?: string;
 	disabled?: boolean;
+	placeholder?: string;
+	min_values?: number;
+	max_values?: number;
+	options?: Array<SelectOptionData>;
 }
+
+export type SelectOptionData = {
+	label: string;
+	value: string;
+	description?: string;
+	emoji?: {
+		id?: Snowflake | null;
+		name?: string;
+		animated?: boolean;
+	};
+	default?: boolean;
+}
+
+export type MessageComponentType = 1 | 2 | 3;
 
 export type ButtonData = {
 	type: 2;
