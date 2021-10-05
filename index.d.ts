@@ -457,9 +457,6 @@ export interface NewsChannelData extends GuildChannelData, TextableChannelData {
 
 export type PermissionOverwriteData = {
 	id: Snowflake;
-	/**
-	 * 0 (role) or 1 (member)
-	 */
 	type: 0 | 1;
 	allow: string;
 	deny: string;
