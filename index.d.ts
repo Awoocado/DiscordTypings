@@ -121,7 +121,8 @@ export type MessageData = {
 	activity?: MessageActivityData;
 	application?: ApplicationData;
 	thread?: ThreadChannelData;
-	sticker_items?: Array<StickerData>;
+	sticker_items?: Array<StickerItemData>;
+	stickers?: Array<StickerData>;
 	message_reference?: MessageReferenceData;
 	referenced_message?: MessageData | null;
 	reactions?: Array<ReactionData>;
@@ -160,8 +161,11 @@ export type UserData = {
 	bot?: boolean;
 	system?: boolean;
 	mfa_enabled?: boolean;
+	banner?: string | null;
+	accent_color?: number | null;
 	locale?: string;
 	verified?: boolean;
+	premium_type?: number;
 }
 
 export type EmbedData = {
@@ -177,42 +181,38 @@ export type EmbedData = {
 	description?: string;
 	timestamp?: string;
 	title?: string;
-	type?: "rich";
+	type?: "rich" | "image" | "video" | "gifv" | "article" | "link";
 	url?: string;
 	icon_url?: string;
 	name?: string;
-	fields?: Array<any>;
+	fields?: Array<{ name: string; value: string; inline?: boolean }>;
 	footer?: {
 		text?: string;
 		icon_url?: string;
-		iconURL?: string;
 		proxy_icon_url?: string;
-		proxyIconURL?: string;
 	}
 	thumbnail?: {
 		url?: string;
 		proxy_url?: string;
-		proxyURL?: string;
 		height?: number;
 		width?: number;
 	};
 	image?: {
 		url?: string;
 		proxy_url?: string;
-		proxyURL?: string;
 		height?: number;
 		width?: number;
 	};
 	video?: {
 		url?: string;
 		proxy_url?: string;
-		proxyURL?: string;
 		height?: number;
 		width?: number;
 	};
 	provider?: {
 		name?: string;
-	}
+		url?: string;
+	};
 }
 
 export type AttachmentData = {
@@ -224,6 +224,7 @@ export type AttachmentData = {
 	url: string;
 	width?: number | null;
 	content_type?: string;
+	ephemeral?: boolean;
 }
 
 export type GuildData = {
@@ -305,9 +306,17 @@ export type RoleData = {
 	managed: boolean;
 	mentionable: boolean;
 	name: string;
-	permissions: number;
-	permissions_new: string;
+	permissions: string;
 	position: number;
+	icon: string | null;
+	unicode_emoji: string | null;
+	tags?: RoleTags;
+}
+
+export type RoleTags = {
+	bot_id?: Snowflake;
+	integration_id?: Snowflake;
+	premium_subscriber?: null;
 }
 
 export type EmojiData = {
@@ -324,7 +333,6 @@ export type EmojiData = {
 export type PresenceData = {
 	user: UserData;
 	roles: Array<Snowflake>;
-	game: ActivityData;
 	guild_id: Snowflake;
 	activities: Array<ActivityData>;
 	client_status: ClientStatusData;
@@ -403,6 +411,7 @@ export interface ThreadMetaData {
 	archiver_id?: Snowflake;
 	auto_archive_duration: number;
 	locked: boolean;
+	invitable?: boolean;
 }
 
 export interface DMChannelData extends TextableChannelData {
@@ -492,11 +501,29 @@ export type TeamMemberData = {
 	user: UserData;
 }
 
-export type StickerData = {
+export type StickerItemData = {
 	id: Snowflake;
 	name: string;
-	format_type: 1 | 2 | 3
+	format_type: StickerFormatType;
 }
+
+export type StickerData = {
+	id: Snowflake;
+	pack_id?: Snowflake;
+	name: string;
+	description: string | null;
+	tags: string;
+	type: StickerType;
+	format_type: StickerFormatType;
+	available?: boolean;
+	guild_id?: Snowflake;
+	user?: UserData;
+	sort_value?: number;
+}
+
+export type StickerType = 1 | 2;
+
+export type StickerFormatType = 1 | 2 | 3;
 
 export type MessageReferenceData = {
 	message_id?: Snowflake;
@@ -654,9 +681,10 @@ export type ApplicationCommandOption = {
 	required?: boolean;
 	choices?: Array<ApplicationCommandOptionChoice>;
 	options?: Array<ApplicationCommandOption>;
+	channel_types?: Array<ChannelType>;
 }
 
-export type ApplicationCommandOptionType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type ApplicationCommandOptionType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export type ApplicationCommandOptionChoice = {
 	name: string;
@@ -767,6 +795,8 @@ export type AuditLogObject = {
 	webhooks: Array<any>;
 	users: Array<UserData>;
 	audit_log_entries: Array<AuditLogEntry>;
+	integrations: Array<IntegrationData>;
+	threads: Array<ThreadChannelData>;
 }
 
 export type AuditLogEntry = {
@@ -786,6 +816,10 @@ export type AuditLogEntry = {
 		role_name?: string;
 	};
 	reason?: string;
+	archived?: boolean;
+	locked?: boolean;
+	auto_archive_duration?: number;
+	default_auto_archive_duration?: number;
 }
 
 export type AuditLogChange = {
@@ -794,7 +828,7 @@ export type AuditLogChange = {
 	key: string;
 }
 
-export type AuditLogEventType = 1 | 10 | 11 | 12 | 13 | 14 | 15 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 30 | 31 | 32 | 40 | 41 | 42 | 50 | 51 | 52 | 60 | 61 | 62 | 72 | 73 | 74 | 75 | 80 | 81 | 82 | 83 | 84 | 85;
+export type AuditLogEventType = 1 | 10 | 11 | 12 | 13 | 14 | 15 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 30 | 31 | 32 | 40 | 41 | 42 | 50 | 51 | 52 | 60 | 61 | 62 | 72 | 73 | 74 | 75 | 80 | 81 | 82 | 83 | 84 | 85 | 90 | 91 | 92 | 110 | 111 | 112;
 
 export type GuildPreviewData = Pick<GuildData, "id" | "name" | "icon" | "splash" | "discovery_splash" | "emojis" | "features" | "approximate_member_count" | "approximate_presence_count" | "description">;
 
