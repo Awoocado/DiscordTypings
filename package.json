@@ -10,6 +10,5 @@
   },
   "bugs": "https://github.com/AmandaDiscord/DiscordTypings/issues",
   "author": "PapiOphidian",
-  "license": "MIT",
-  "files": ["./index.js", "./index.d.ts"]
+  "license": "MIT"
 }
