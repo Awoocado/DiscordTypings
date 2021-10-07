@@ -805,18 +805,14 @@ export type AuditLogEntry = {
 	options?: {
 		delete_member_days?: string;
 		members_removed?: string;
-		channel_id?: string;
-		message_id?: string;
+		channel_id?: Snowflake;
+		message_id?: Snowflake;
 		count?: string;
-		id?: string;
+		id?: Snowflake;
 		type?: "0" | "1";
 		role_name?: string;
 	};
 	reason?: string;
-	archived?: boolean;
-	locked?: boolean;
-	auto_archive_duration?: number;
-	default_auto_archive_duration?: number;
 }
 
 export type AuditLogChange = {
