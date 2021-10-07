@@ -1,9 +1,14 @@
 {
   "name": "discord-typings",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Typings for data returned by Discord (unofficial)",
   "main": "index.js",
   "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmandaDiscord/DiscordTypings.git"
+  },
+  "bugs": "https://github.com/AmandaDiscord/DiscordTypings/issues",
   "author": "PapiOphidian",
   "license": "MIT",
   "files": ["./index.js", "./index.d.ts"]
