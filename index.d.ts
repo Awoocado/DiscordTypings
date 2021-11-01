@@ -679,12 +679,16 @@ export type ApplicationCommandOption = {
 	choices?: Array<ApplicationCommandOptionChoice>;
 	options?: Array<ApplicationCommandOption>;
 	channel_types?: Array<ChannelType>;
+	min_value?: number;
+	max_value?: number;
+	autocomplete?: boolean;
 }
 
 export type ApplicationCommandOptionType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export type ApplicationCommandOptionChoice = {
 	name: string;
+	type?: ApplicationCommandOptionType;
 	value: string | number;
 }
 
@@ -741,6 +745,7 @@ export type ApplicationCommandInteractionDataOption = {
 	type: ApplicationCommandOptionType;
 	value?: string | number;
 	options?: Array<ApplicationCommandInteractionDataOption>;
+	focused?: boolean;
 }
 
 export type InteractionResponseData = {
