@@ -250,7 +250,7 @@ export type GuildData = {
 	vanity_url_code: string | null;
 	premium_subscription_count?: number;
 	name: string;
-	channels?: Array<TextChannelData | VoiceChannelData | StageChannelData | CategoryChannelData | NewsChannelData>;
+	channels?: Array<TextChannelData | VoiceChannelData | StageChannelData | CategoryChannelData | NewsChannelData | StoreChannelData>;
 	threads?: Array<ThreadChannelData>;
 	joined_at?: string;
 	unavailable?: boolean;

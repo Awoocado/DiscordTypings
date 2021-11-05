@@ -1,6 +1,6 @@
 {
   "name": "discord-typings",
-  "version": "9.0.3",
+  "version": "9.0.4",
   "description": "Typings for data returned by Discord (unofficial)",
   "main": "index.js",
   "types": "./index.d.ts",
