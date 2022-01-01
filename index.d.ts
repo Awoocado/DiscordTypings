@@ -957,25 +957,26 @@ export type InteractionData = {
 /*
  * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
  */
-
 export type InteractionType = 1 | 2 | 3 | 4;
 
 export type ApplicationCommandInteractionData = {
 	id: Snowflake;
 	name: string;
+	type?: ApplicationCommandType;
 	resolved?: ApplicationCommandInteractionDataResolved;
 	options?: Array<ApplicationCommandInteractionDataOption>;
 	custom_id?: string;
-	component_type?: 1 | 2;
+	component_type?: 1 | 2 | 3;
+	values?: Array<SelectOptionData>
 	target_id?: Snowflake;
 }
 
 export type ApplicationCommandInteractionDataResolved = {
 	users?: { [id: string]: UserData };
-	members?: { [id: string]: MemberData };
+	members?: { [id: string]: Partial<MemberData> };
 	roles?: { [id: string]: RoleData };
-	channels?: { [id: string]: ChannelData; };
-	messages?: { [id: string]: MessageData; };
+	channels?: { [id: string]: Partial<ChannelData>; };
+	messages?: { [id: string]: Partial<MessageData>; };
 }
 
 export type ApplicationCommandInteractionDataOption = {
@@ -1121,7 +1122,6 @@ export type VoiceRegionData = {
 /*
  * https://discord.com/developers/docs/interactions/message-components#component-object
  */
-
 export type MessageComponentData = {
 	type: MessageComponentType;
 	custom_id?: string;
@@ -1230,7 +1230,6 @@ export type IntegrationApplicationData = {
 /*
  * https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object
  */
-
 export type GuildScheduleEventData = {
 	id: Snowflake;
 	guild_id: Snowflake;
@@ -1246,4 +1245,14 @@ export type GuildScheduleEventData = {
 	entity_metadata: { location?: string } | null;
 	creator?: UserData;
 	user_count?: number;
+}
+
+/**
+ * https://discord.com/developers/docs/resources/invite#invite-stage-instance-object
+ */
+export type InviteStageInstanceData = {
+	members: Array<Partial<MemberData>>;
+	participant_count: number;
+	speaker_count: number;
+	topic: string;
 }
