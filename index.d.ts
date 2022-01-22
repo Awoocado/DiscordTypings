@@ -523,6 +523,7 @@ export interface ThreadChannelData extends GuildChannelData, TextableChannelData
 	thread_metadata: ThreadMetaData;
 	type: 10 | 11 | 12;
 	default_auto_archive_duration: number | null;
+	create_timestamp?: string;
 }
 
 /*
@@ -952,6 +953,8 @@ export type InteractionData = {
 	token: string;
 	version: number;
 	message?: MessageData;
+	locale?: string;
+	guild_locale?: string;
 }
 
 /*
@@ -1001,7 +1004,7 @@ export type InteractionApplicationCommandCallbackData = {
 	allowed_mentions?: AllowedMentionsData;
 	flags?: number;
 	components?: Array<MessageComponentData>;
-	attachments: Array<AttachmentData>;
+	attachments?: Array<AttachmentData>;
 }
 
 /*
@@ -1091,7 +1094,7 @@ export type AuditLogChange = {
 
 export type AuditLogEventType = 1 | 10 | 11 | 12 | 13 | 14 | 15 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 30 | 31 | 32 | 40 | 41 | 42 | 50 | 51 | 52 | 60 | 61 | 62 | 72 | 73 | 74 | 75 | 80 | 81 | 82 | 83 | 84 | 85 | 90 | 91 | 92 | 100 | 101 | 102 | 110 | 111 | 112;
 
-export type GuildPreviewData = Pick<GuildData, "id" | "name" | "icon" | "splash" | "discovery_splash" | "emojis" | "features" | "approximate_member_count" | "approximate_presence_count" | "description">;
+export type GuildPreviewData = Pick<GuildData, "id" | "name" | "icon" | "splash" | "discovery_splash" | "emojis" | "features" | "approximate_member_count" | "approximate_presence_count" | "description" | "stickers">;
 
 /*
  * https://discord.com/developers/docs/resources/guild#get-guild-widget-example-get-guild-widget
