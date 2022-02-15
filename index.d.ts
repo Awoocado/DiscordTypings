@@ -970,7 +970,7 @@ export type ApplicationCommandInteractionData = {
 	options?: Array<ApplicationCommandInteractionDataOption>;
 	custom_id?: string;
 	component_type?: 1 | 2 | 3;
-	values?: Array<SelectOptionData>
+	values?: Array<string>;
 	target_id?: Snowflake;
 }
 
