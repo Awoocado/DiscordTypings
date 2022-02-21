@@ -14,6 +14,7 @@ export type GatewayPayload = {
  * https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events
  */
 export type GatewayEvent = "READY"
+	| "RESUMED"
 	| "CHANNEL_CREATE"
 	| "CHANNEL_UPDATE"
 	| "CHANNEL_DELETE"
