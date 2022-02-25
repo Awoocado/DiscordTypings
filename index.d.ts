@@ -5,6 +5,7 @@ export * from "./Interactions/ReceivingAndResponding";
 export * from "./Resources/Application";
 export * from "./Resources/AuditLog";
 export * from "./Resources/Channel";
+export * from "./Resources/Discovery";
 export * from "./Resources/Emoji";
 export * from "./Resources/Guild";
 export * from "./Resources/GuildScheduledEvent";
